@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import AllKeysDetail from './pages/AllKeysDetail';
 import KeyList from './pages/KeyList';
 import Search from './pages/Search';
 import Log from './pages/Log';
@@ -20,6 +21,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/keys/all" element={<AllKeysDetail />} />
         <Route element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="keys/in-use" element={<KeyList filter="in-use" />} />

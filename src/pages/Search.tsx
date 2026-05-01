@@ -260,6 +260,12 @@ export default function Search() {
       {/* 固定フッターバー（常時表示） */}
       <div className="sticky bottom-0 bg-white border border-[#e5e8ed] flex items-center justify-end gap-3 px-6 py-4">
         <button
+          onClick={() => navigate('/keys/all')}
+          className="border border-[#e5e8ed] text-[#17171c] text-[12px] font-medium px-[14px] py-2 rounded-[8px] hover:bg-[#f2f5f5] transition-colors"
+        >
+          すべての鍵を見る
+        </button>
+        <button
           onClick={() => navigate('/keys/bulk-update', { state: { selectedIds: Array.from(selectedIds) } })}
           className="border border-[#e5e8ed] text-[#17171c] text-[12px] font-medium px-[14px] py-2 rounded-[8px] hover:bg-[#f2f5f5] transition-colors"
         >

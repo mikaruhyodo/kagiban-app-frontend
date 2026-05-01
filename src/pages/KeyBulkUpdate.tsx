@@ -5,6 +5,7 @@ import { mockKeys } from '../data/mock-data';
 import StatusBadge from '../components/StatusBadge';
 
 const BRANCHES = ['渋谷店', '新宿店', '目黒店', '品川店', '池袋店'];
+const STATUSES = ['貸出可', '予約確定', '利用中', '未返却', '返却確認中', '予約不可'];
 
 export default function KeyBulkUpdate() {
   const navigate = useNavigate();
@@ -14,10 +15,12 @@ export default function KeyBulkUpdate() {
 
   const [updateBranch, setUpdateBranch] = useState(true);
   const [branchValue, setBranchValue] = useState('渋谷店');
+  const [updateStatus, setUpdateStatus] = useState(false);
+  const [statusValue, setStatusValue] = useState('貸出可');
   const [updateMemo, setUpdateMemo] = useState(false);
   const [memoValue, setMemoValue] = useState('');
 
-  const activeFields = [updateBranch, updateMemo].filter(Boolean).length;
+  const activeFields = [updateBranch, updateStatus, updateMemo].filter(Boolean).length;
 
   return (
     <div className="p-8 flex flex-col gap-5">
@@ -88,6 +91,14 @@ export default function KeyBulkUpdate() {
           label="保管店舗"
         >
           <SelectField value={branchValue} onChange={setBranchValue} options={BRANCHES} disabled={!updateBranch} />
+        </UpdateFieldRow>
+
+        <UpdateFieldRow
+          checked={updateStatus}
+          onCheck={setUpdateStatus}
+          label="ステータス"
+        >
+          <SelectField value={statusValue} onChange={setStatusValue} options={STATUSES} disabled={!updateStatus} />
         </UpdateFieldRow>
 
         <UpdateFieldRow
