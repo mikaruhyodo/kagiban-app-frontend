@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { mockKeys } from '../data/mock-data';
 import type { Key, KeyStatus } from '../types';
 
@@ -29,91 +28,82 @@ function SectionTitle({ title }: { title: string }) {
 }
 
 function KeyCard({ keyItem }: { keyItem: Key }) {
-  const [open, setOpen] = useState(false);
   const badge = statusBadge[keyItem.status];
 
   return (
     <div className="bg-white border border-[#e5e8ed] rounded-[10px] overflow-hidden">
-      {/* ヘッダー（常時表示） */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-4 px-5 py-4 hover:bg-[#fafafa] transition-colors text-left"
-      >
-        <div className="flex-1 flex items-center gap-4 min-w-0">
-          <p className="font-bold text-[#17171c] text-[15px] shrink-0">{keyItem.id}</p>
-          <p className="text-[#6b7380] text-[13px] truncate">{keyItem.buildingName} {keyItem.roomNumber}号室</p>
-          <span className={`${badge.bg} ${badge.text} text-[11px] font-medium px-[10px] py-1 rounded-[6px] shrink-0`}>
-            {keyItem.status}
-          </span>
-          <p className="text-[#8c949e] text-[12px] shrink-0">{keyItem.storeBranch}</p>
+      {/* ヘッダー */}
+      <div className="flex items-center gap-4 px-5 py-4 border-b border-[#e5e8ed]">
+        <p className="font-bold text-[#17171c] text-[15px] shrink-0">{keyItem.id}</p>
+        <p className="text-[#6b7380] text-[13px] truncate">{keyItem.buildingName} {keyItem.roomNumber}号室</p>
+        <span className={`${badge.bg} ${badge.text} text-[11px] font-medium px-[10px] py-1 rounded-[6px] shrink-0`}>
+          {keyItem.status}
+        </span>
+        <p className="text-[#8c949e] text-[12px] shrink-0">{keyItem.storeBranch}</p>
+      </div>
+
+      {/* 詳細（常時表示） */}
+      <div className="px-5 py-5 grid grid-cols-3 gap-6">
+
+        {/* 基本情報 */}
+        <div>
+          <SectionTitle title="基本情報" />
+          <div className="flex flex-col gap-3">
+            <Field label="鍵番号" value={keyItem.id} />
+            <Field label="現在のステータス" value={keyItem.status} />
+          </div>
         </div>
-        {open ? <ChevronUp size={16} className="text-[#6b7380] shrink-0" /> : <ChevronDown size={16} className="text-[#6b7380] shrink-0" />}
-      </button>
 
-      {/* 詳細（展開時） */}
-      {open && (
-        <div className="border-t border-[#e5e8ed] px-5 py-5 grid grid-cols-3 gap-6">
-
-          {/* 基本情報 */}
-          <div>
-            <SectionTitle title="基本情報" />
-            <div className="flex flex-col gap-3">
-              <Field label="鍵番号" value={keyItem.id} />
-              <Field label="現在のステータス" value={keyItem.status} />
-            </div>
+        {/* 物件情報 */}
+        <div>
+          <SectionTitle title="物件情報" />
+          <div className="flex flex-col gap-3">
+            <Field label="物件名" value={keyItem.buildingName} />
+            <Field label="部屋番号" value={keyItem.roomNumber ? `${keyItem.roomNumber}号室` : null} />
+            <Field label="住所" value={keyItem.address} />
           </div>
-
-          {/* 物件情報 */}
-          <div>
-            <SectionTitle title="物件情報" />
-            <div className="flex flex-col gap-3">
-              <Field label="物件名" value={keyItem.buildingName} />
-              <Field label="部屋番号" value={keyItem.roomNumber ? `${keyItem.roomNumber}号室` : null} />
-              <Field label="住所" value={keyItem.address} />
-            </div>
-          </div>
-
-          {/* 鍵仕様 */}
-          <div>
-            <SectionTitle title="鍵仕様" />
-            <div className="flex flex-col gap-3">
-              <Field label="鍵タイプ" value={keyItem.keyType} />
-              <Field label="総本数" value={keyItem.totalKeys != null ? `${keyItem.totalKeys}本` : null} />
-              <Field label="スペアキー" value={keyItem.spareKeys != null ? `${keyItem.spareKeys}本` : null} />
-            </div>
-          </div>
-
-          {/* 保管情報 */}
-          <div>
-            <SectionTitle title="保管情報" />
-            <div className="flex flex-col gap-3">
-              <Field label="保管店舗" value={keyItem.storeBranch} />
-              <Field label="カテゴリ" value={keyItem.category} />
-            </div>
-          </div>
-
-          {/* 受託・返却情報 */}
-          <div>
-            <SectionTitle title="受託・返却情報" />
-            <div className="flex flex-col gap-3">
-              <Field label="管理区分" value={keyItem.category} />
-              <Field label="契約会社" value={keyItem.contractCompany} />
-              <Field label="受託日" value="—" />
-              <Field label="家主返却済み" value="—" />
-            </div>
-          </div>
-
-          {/* 備考 */}
-          <div>
-            <SectionTitle title="備考" />
-            <div className="flex flex-col gap-3">
-              <Field label="鍵に対する備考" value={keyItem.memo} />
-              <Field label="物件・その他に対する備考" value="—" />
-            </div>
-          </div>
-
         </div>
-      )}
+
+        {/* 鍵仕様 */}
+        <div>
+          <SectionTitle title="鍵仕様" />
+          <div className="flex flex-col gap-3">
+            <Field label="鍵タイプ" value={keyItem.keyType} />
+            <Field label="総本数" value={keyItem.totalKeys != null ? `${keyItem.totalKeys}本` : null} />
+            <Field label="スペアキー" value={keyItem.spareKeys != null ? `${keyItem.spareKeys}本` : null} />
+          </div>
+        </div>
+
+        {/* 保管情報 */}
+        <div>
+          <SectionTitle title="保管情報" />
+          <div className="flex flex-col gap-3">
+            <Field label="保管店舗" value={keyItem.storeBranch} />
+            <Field label="カテゴリ" value={keyItem.category} />
+          </div>
+        </div>
+
+        {/* 受託・返却情報 */}
+        <div>
+          <SectionTitle title="受託・返却情報" />
+          <div className="flex flex-col gap-3">
+            <Field label="管理区分" value={keyItem.category} />
+            <Field label="契約会社" value={keyItem.contractCompany} />
+            <Field label="受託日" value="—" />
+            <Field label="家主返却済み" value="—" />
+          </div>
+        </div>
+
+        {/* 備考 */}
+        <div>
+          <SectionTitle title="備考" />
+          <div className="flex flex-col gap-3">
+            <Field label="鍵に対する備考" value={keyItem.memo} />
+            <Field label="物件・その他に対する備考" value="—" />
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
@@ -134,7 +124,7 @@ export default function AllKeysDetail() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bold text-[#17171c] text-[24px]">すべての鍵一覧</h1>
-          <p className="text-[#6b7380] text-[13px] mt-1">全 {mockKeys.length} 件　各行をクリックすると詳細が展開されます</p>
+          <p className="text-[#6b7380] text-[13px] mt-1">全 {mockKeys.length} 件</p>
         </div>
       </div>
 
