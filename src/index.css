@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2663eb;
+  --color-primary-hover: #1d54d4;
+  --color-primary-light: #dbe8ff;
+  --color-error: #db2626;
+  --color-error-light: #fcf2f2;
+  --color-success: #17a34a;
+  --color-success-light: #f0fcf2;
+  --color-purple: #8c4ad9;
+  --color-purple-light: #f7f2ff;
+  --color-warning: #cc910a;
+  --color-warning-light: #fffaeb;
+
+  --color-text-dark: #17171c;
+  --color-text-body: #38404f;
+  --color-text-muted: #6b7380;
+  --color-text-dim: #8c949e;
+  --color-text-nav: #4d5466;
+  --color-text-label: #4a5463;
+
+  --color-border: #e5e8ed;
+  --color-border-light: #f2f5f5;
+  --color-border-input: #d1d6db;
+
+  --color-bg: #fafafc;
+  --color-bg-page: #f2f5f5;
+  --color-bg-surface: #fafafa;
+
+  --font-sans: "Inter", "Noto Sans JP", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Noto Sans JP", sans-serif;
+  background-color: #fafafc;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
