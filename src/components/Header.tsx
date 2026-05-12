@@ -1,4 +1,5 @@
 import { LogOut, Bell } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   variant?: 'default' | 'detail';
@@ -6,6 +7,7 @@ interface HeaderProps {
 }
 
 export default function Header({ variant = 'default', title }: HeaderProps) {
+  const navigate = useNavigate();
   if (variant === 'detail') {
     return (
       <header className="bg-white border-b border-[#e5e8ed] flex items-center h-[60px] px-8">
@@ -30,7 +32,10 @@ export default function Header({ variant = 'default', title }: HeaderProps) {
           <span className="text-[#6b7380]">ログイン中: </span>
           <span className="text-[#17171c] font-medium">管理者・田中</span>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-[8px] text-[13px] text-[#4d5466] hover:bg-[#f2f5f5] transition-colors">
+        <button
+          onClick={() => navigate('/login')}
+          className="flex items-center gap-2 px-4 py-2 rounded-[8px] text-[13px] text-[#4d5466] hover:bg-[#f2f5f5] transition-colors"
+        >
           <LogOut size={16} />
           ログアウト
         </button>
